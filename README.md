@@ -6,3 +6,8 @@ This project is my attempt to add functionality to the Raspberry Pi Pico. This p
 
 *TBD*
 
+## Environment Setup
+
+*TBD*
+
+## 

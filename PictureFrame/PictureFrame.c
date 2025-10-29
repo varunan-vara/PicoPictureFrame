@@ -5,9 +5,17 @@
 int main()
 {
     stdio_init_all();
+    
+    gpio_init(1);
+    gpio_init(2);
+
+    gpio_set_dir(1, GPIO_OUT);
+    gpio_set_dir(2, GPIO_OUT);
 
     while (true) {
-        printf("Hello, world!\n");
-        sleep_ms(1000);
+        gpio_put(1,1);
+        sleep_ms(200);
+        gpio_put(1,0);
+        sleep_ms(800);
     }
 }

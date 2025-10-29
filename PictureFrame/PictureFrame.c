@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
+void spi_screen_init () {
 
-int main()
-{
+}
+
+int main() {
     stdio_init_all();
     
     gpio_init(1);

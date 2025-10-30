@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "SPI/RP2040_ILI9341.h"
 
 void spi_screen_init () {
 
@@ -7,6 +8,8 @@ void spi_screen_init () {
 
 int main() {
     stdio_init_all();
+
+    ILI9341_init(spi0, 10);
     
     gpio_init(1);
     gpio_init(2);

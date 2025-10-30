@@ -35,18 +35,18 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(PictureFrame PictureFrame.c )
+add_executable(PictureFrame PictureFrame.c SPI/RP2040_ILI9341.c )
 
 pico_set_program_name(PictureFrame "PictureFrame")
 pico_set_program_version(PictureFrame "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(PictureFrame 0)
+pico_enable_stdio_uart(PictureFrame 1)
 pico_enable_stdio_usb(PictureFrame 0)
 
 # Add the standard library to the build
 target_link_libraries(PictureFrame
-        pico_stdlib)
+        pico_stdlib hardware_spi hardware_gpio)
 
 # Add the standard include files to the build
 target_include_directories(PictureFrame PRIVATE

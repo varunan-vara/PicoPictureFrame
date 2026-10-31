@@ -23,7 +23,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico CACHE STRING "Board type")
+set(PICO_BOARD pico2_w CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -35,18 +35,24 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(PictureFrame PictureFrame.c SPI/RP2040_ILI9341.c )
+add_executable(PictureFrame
+        src/main.c
+        src/display/display.c
+        src/display/canvas.c
+        src/display/font/font8.c
+        src/display/font/font16.c
+)
 
 pico_set_program_name(PictureFrame "PictureFrame")
 pico_set_program_version(PictureFrame "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(PictureFrame 1)
-pico_enable_stdio_usb(PictureFrame 0)
+pico_enable_stdio_uart(PictureFrame 0)
+pico_enable_stdio_usb(PictureFrame 1)
 
 # Add the standard library to the build
 target_link_libraries(PictureFrame
-        pico_stdlib hardware_spi hardware_gpio)
+        pico_stdlib pico_cyw43_arch_none hardware_spi hardware_dma hardware_gpio hardware_adc hardware_pwm)
 
 # Add the standard include files to the build
 target_include_directories(PictureFrame PRIVATE

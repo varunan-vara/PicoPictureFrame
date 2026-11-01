@@ -26,7 +26,7 @@ This project is my attempt to build a small handheld device around the Raspberry
 
 ```
 PicoPictureFrame/
-├── PictureFrame/        Firmware (C, Pico SDK)
+├── MenuFirmware/        Menu firmware (C, Pico SDK)
 │   ├── src/
 │   │   ├── main.c
 │   │   ├── display/     Screen driver, canvas (software framebuffer) and fonts
@@ -42,8 +42,8 @@ PicoPictureFrame/
 ## Environment Setup
 
 1. Install the [Raspberry Pi Pico VS Code extension](https://marketplace.visualstudio.com/items?itemName=raspberry-pi.raspberry-pi-pico). It downloads the Pico SDK (2.2.0), the toolchain, CMake and Ninja for you.
-2. Open the repository in VS Code and import the `PictureFrame` folder as a Pico project.
-3. The board is set to `pico2_w` in `PictureFrame/CMakeLists.txt`. Leave it as is.
+2. Open the repository in VS Code and import the `MenuFirmware` folder as a Pico project.
+3. The board is set to `pico2_w` in `MenuFirmware/CMakeLists.txt`. Leave it as is.
 4. Build the project, then hold **BOOTSEL** while plugging in the Pico and flash the generated `.uf2` file onto it.
 
 Plug the Waveshare screen onto the Pico, flash the `.uf2` and open the USB serial port to see the numbers printed.

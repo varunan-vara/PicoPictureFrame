@@ -37,5 +37,12 @@
     "raspberry-pi-pico.useCmakeTools": false,
     "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.31.5/bin/cmake",
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
-    "cmake.sourceDirectory": "/Users/varunanvarathan/Desktop/Projects/PicoPictureFrame/MenuFirmware"
+    "cmake.sourceDirectory": "/Users/varunanvarathan/Desktop/Projects/PicoPictureFrame/MenuFirmware",
+    "python-envs.pythonProjects": [
+        {
+            "path": ".",
+            "envManager": "ms-python.python:conda",
+            "packageManager": "ms-python.python:conda"
+        }
+    ]
 }

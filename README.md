@@ -34,6 +34,7 @@ PicoPictureFrame/
 │   │   └── audio/       Speaker output through the amplifier
 │   ├── CMakeLists.txt
 │   └── pico_sdk_import.cmake
+├── simulator/           Desktop pygame stand-in for the screen, for trying app code
 ├── cad/                 Case and chassis models
 ├── doc/                 Specification and design documents
 └── README.md

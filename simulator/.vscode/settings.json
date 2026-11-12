@@ -5,5 +5,8 @@
             "envManager": "ms-python.python:conda",
             "packageManager": "ms-python.python:conda"
         }
+    ],
+        "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=pygame"
     ]
 }

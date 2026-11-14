@@ -1,0 +1,10 @@
+[project]
+name = "pico-picture-frame"
+version = "0.1.0"
+description = "Tooling for the Pico picture frame: desktop simulator and asset converters"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+simulator = ["pygame"]
+tools = ["pillow"]

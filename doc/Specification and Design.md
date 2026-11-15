@@ -14,6 +14,9 @@
   - [2 - Functionality](#2---functionality)
     - [2.1 - Core Functionality Summary](#21---core-functionality-summary)
     - [2.2 - I/O](#22---io)
+      - [Input interface](#input-interface)
+      - [Buttons](#buttons)
+      - [Joystick](#joystick)
     - [2.3 - Power Requirements](#23---power-requirements)
   - [3 - Hardware Specifications](#3---hardware-specifications)
     - [3.1 - Raspberry Pi Pico Pinout](#31---raspberry-pi-pico-pinout)
@@ -46,6 +49,38 @@
 ### 2.1 - Core Functionality Summary
 
 ### 2.2 - I/O
+
+#### Input interface
+
+Games read the buttons and the joystick through one simple interface, with no event queues or callbacks. The firmware and the desktop simulator expose the same calls, so game code runs unchanged on the Pico and on a laptop. The pins are listed in section 3.1.
+
+| Input | Mode | What the game reads |
+| --- | --- | --- |
+| Button | Press | `true` for one frame, the frame the button goes down |
+| Button | Hold | `true` on every frame while the button is down |
+| Joystick | Analog | The raw `x` and `y` axes, from -1.0 to 1.0 |
+| Joystick | Digital | Up, down, left and right, each behaving like a button (press and hold) |
+
+The inputs are polled rather than interrupt driven (see the notes at the end of this document). Press and hold are both derived from the same polled, debounced state, so a game can use either mode on any button.
+
+#### Buttons
+
+Button A, Button B, the Menu button and the joystick's SW pushbutton all use the same interface. Press is for one-shot actions like selecting a menu item or jumping. Hold is for continuous ones like moving or charging a shot.
+
+#### Joystick
+
+The joystick's VRX and VRY outputs are read by the 12 bit ADC and scaled to the range -1.0 to 1.0, centred on the stick's resting position. A game picks one of two modes.
+
+**Analog.** Feeds the axes straight through, for movement that should scale with how far the stick is pushed. A small dead zone around the centre makes a resting stick read exactly 0.
+
+**Digital.** Turns the stick into four buttons, so menus and grid games can use it like a d-pad. A direction counts as pressed once its axis moves far enough, and it then has press and hold like any other button.
+
+- Each axis is checked on its own, so a diagonal activates two directions at once (up and right, for example) and a game sees two button pushes.
+- Each direction turns on above a higher threshold and only turns off below a lower one (for example on at 0.5 and off at 0.3), so a stick resting near the edge does not flicker between pressed and released.
+- Keep the on threshold at about 0.5 or less. Sticks with a circular gate only reach about 0.7 on each axis when pushed diagonally, so a higher threshold makes diagonals hard to trigger.
+- These numbers are starting values and need tuning on the real stick.
+
+In the simulator the buttons and joystick map to keyboard keys, and the touchscreen maps to the mouse.
 
 ### 2.3 - Power Requirements
 

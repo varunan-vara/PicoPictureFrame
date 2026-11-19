@@ -7,4 +7,7 @@ dependencies = []
 
 [dependency-groups]
 simulator = ["pygame"]
+# convert_png_to_bin.py, build_assets.py and resize_png_to_screen.py
+# (the picker in resize_png_to_screen.py also needs tkinter, which is part of Python, not pip:
+# on Homebrew Python install it with `brew install python-tk`)
 tools = ["pillow"]

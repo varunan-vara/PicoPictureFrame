@@ -3,6 +3,9 @@
 
 Usage: convert_png_to_bin.py <png_folder> [-o OUT_DIR] [--little-endian]
 
+Output goes to OUT_DIR. By default a folder named 'art' writes to the 'assets' folder
+next to it (apps/konpira/art -> apps/konpira/assets); any other folder writes in place.
+
 Requires Pillow: pip install pillow
 
 File layout (header fields little-endian):
@@ -58,10 +61,33 @@ def convert(png_path: str, out_path: str, big_endian: bool) -> list:
     return width, height, fmt
 
 
+def default_out_dir(folder: Path) -> Path:
+    """An 'art' folder writes to the 'assets' folder next to it; any other folder writes in place"""
+    if folder.resolve().name == "art":
+        return folder.resolve().parent / "assets"
+    return folder
+
+
+def convert_folder(folder: Path, out_dir: Path, big_endian: bool) -> int:
+    """Converts every png in folder to a .bin in out_dir, returns how many were converted"""
+    pngs = sorted(folder.glob("*.png"))
+    if not pngs:
+        sys.exit(f"error: no .png files in {folder}")
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    for png in pngs:
+        out_path = out_dir / (png.stem + ".bin")
+        width, height, fmt = convert(png, out_path, big_endian)
+        print(f"{png.name} -> {out_path} ({width}x{height}, format {fmt})")
+    return len(pngs)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("folder", type=Path, help="folder containing .png files")
-    parser.add_argument("-o", "--out", type=Path, help="output folder (default: same as input)")
+    parser.add_argument("-o", "--out", type=Path,
+                        help="output folder (default: ../assets if the input folder is named 'art', else the input folder)")
     parser.add_argument("--little-endian", action="store_true",
                         help="store pixels little-endian (default: big-endian, as most SPI displays expect)")
     args = parser.parse_args()
@@ -69,17 +95,7 @@ def main():
     if not args.folder.is_dir():
         sys.exit(f"error: {args.folder} is not a folder")
 
-    pngs = sorted(args.folder.glob("*.png"))
-    if not pngs:
-        sys.exit(f"error: no .png files in {args.folder}")
-
-    out_dir = args.out or args.folder
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    for png in pngs:
-        out_path = out_dir / (png.stem + ".bin")
-        width, height, fmt = convert(png, out_path, not args.little_endian)
-        print(f"{png.name} -> {out_path.name} ({width}x{height}, format {fmt})")
+    convert_folder(args.folder, args.out or default_out_dir(args.folder), not args.little_endian)
 
 
 if __name__ == "__main__":

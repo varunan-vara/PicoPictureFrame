@@ -3,6 +3,7 @@
 #include <math.h>
 #include "pico/stdlib.h"
 #include "display/display.h"
+#include "input/input_hw.h"
 
 // Game canvas is half the screen in each direction, the menu is full resolution
 #define GAME_W (LCD_WIDTH / 2)
@@ -115,6 +116,7 @@ static results_t run_game(void) {
         draw_game(sprites, frame++, shown_fps);
         display_blit(&game, 2);
         frames_in_window++;
+        input_hw_debug_print();
 
         uint32_t now = to_ms_since_boot(get_absolute_time());
         if (now - last_report >= 500) {
@@ -135,6 +137,7 @@ static results_t run_game(void) {
 int main() {
     stdio_init_all();
     display_init();
+    input_hw_init();
 
     results_t results = { 0 };
     int selected = 0;
@@ -145,7 +148,12 @@ int main() {
         display_blit(&menu, 1);
         results.menu_blit_ms = (time_us_64() - t0) / 1000.0f;
         printf("full-res blit %.1f ms\n", results.menu_blit_ms);
-        sleep_ms(MENU_MS);
+        // Wait on the menu for MENU_MS, still printing the joystick state
+        uint32_t menu_start = to_ms_since_boot(get_absolute_time());
+        while (to_ms_since_boot(get_absolute_time()) - menu_start < MENU_MS) {
+            input_hw_debug_print();
+            sleep_ms(5);
+        }
 
         float blit_ms = results.menu_blit_ms;
         results = run_game();

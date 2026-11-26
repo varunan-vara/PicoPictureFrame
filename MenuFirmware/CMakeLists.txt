@@ -42,6 +42,7 @@ add_executable(MenuFirmware
         src/display/font/font8.c
         src/display/font/font16.c
         src/display/font/font5x7.c
+        src/input/input_hw.c
 )
 
 pico_set_program_name(MenuFirmware "MenuFirmware")

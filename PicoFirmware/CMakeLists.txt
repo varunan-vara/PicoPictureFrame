@@ -28,14 +28,14 @@ set(PICO_BOARD pico2_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(MenuFirmware C CXX ASM)
+project(PicoFirmware C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(MenuFirmware
+add_executable(PicoFirmware
         src/main.c
         src/display/display.c
         src/display/canvas.c
@@ -45,21 +45,22 @@ add_executable(MenuFirmware
         src/input/input_hw.c
 )
 
-pico_set_program_name(MenuFirmware "MenuFirmware")
-pico_set_program_version(MenuFirmware "0.1")
+pico_set_program_name(PicoFirmware "PicoFirmware")
+pico_set_program_version(PicoFirmware "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(MenuFirmware 0)
-pico_enable_stdio_usb(MenuFirmware 1)
+pico_enable_stdio_uart(PicoFirmware 0)
+pico_enable_stdio_usb(PicoFirmware 1)
 
 # Add the standard library to the build
-target_link_libraries(MenuFirmware
+target_link_libraries(PicoFirmware
         pico_stdlib pico_cyw43_arch_none hardware_spi hardware_dma hardware_gpio hardware_adc hardware_pwm)
 
 # Add the standard include files to the build
-target_include_directories(MenuFirmware PRIVATE
+target_include_directories(PicoFirmware PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
+        ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
-pico_add_extra_outputs(MenuFirmware)
+pico_add_extra_outputs(PicoFirmware)
 

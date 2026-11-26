@@ -17,7 +17,7 @@ LCD_HEIGHT = 240
 # Window size the simulator opens at, roughly a real 2.8" screen on a Mac
 DEFAULT_WINDOW = (502, 376)
 
-FONT_SOURCE = Path(__file__).resolve().parent.parent / "MenuFirmware/src/display/font/font5x7.c"
+FONT_SOURCE = Path(__file__).resolve().parent.parent / "PicoFirmware/src/display/font/font5x7.c"
 FONT_W, FONT_H = 6, 8
 
 

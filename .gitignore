@@ -1,6 +1,6 @@
 !.vscode/*
-MenuFirmware/build/
-MenuFirmware/.cache/
+PicoFirmware/build/
+PicoFirmware/.cache/
 .DS_Store
 __pycache__/
 *.code-workspace

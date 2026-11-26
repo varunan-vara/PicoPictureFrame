@@ -7,7 +7,7 @@
 // plus one blank column of spacing, and one blank row under the 7 pixel rows.
 // Only printable ASCII (' ' to '~') is kept, matching the other fonts.
 
-#include "fonts.h"
+#include "display/font/fonts.h"
 
 static const uint8_t Font5x7_Table[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // ' '

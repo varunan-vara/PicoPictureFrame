@@ -35,7 +35,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "fonts.h"
+#include "display/font/fonts.h"
 
 // 
 //  Font data for Courier New 12pt

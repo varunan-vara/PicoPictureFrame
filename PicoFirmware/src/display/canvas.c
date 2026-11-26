@@ -1,4 +1,4 @@
-#include "canvas.h"
+#include "display/canvas.h"
 
 void canvas_fill_rect(canvas_t *c, int x, int y, int w, int h, uint16_t color) {
     int x0 = x < 0 ? 0 : x;

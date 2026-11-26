@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "hardware/dma.h"
-#include "display.h"
+#include "display/display.h"
 
 // Pico-ResTouch-LCD-2.8 wiring (the LCD, touch and SD card share spi1)
 #define PIN_DC   8

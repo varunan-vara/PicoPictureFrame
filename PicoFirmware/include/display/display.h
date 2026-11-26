@@ -2,7 +2,7 @@
 #define DISPLAY_H
 
 #include <stdint.h>
-#include "canvas.h"
+#include "display/canvas.h"
 
 // Panel in landscape: the Waveshare 2.8" is a 240x320 panel rotated 90 degrees
 #define LCD_WIDTH  320

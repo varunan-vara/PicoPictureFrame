@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "font/fonts.h"
+#include "display/font/fonts.h"
 
 // A software framebuffer in RGB565. Draw into it, then send it with display_blit()
 typedef struct {
